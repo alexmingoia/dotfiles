@@ -20,6 +20,7 @@ Bundle 'othree/html5.vim'
 Bundle 'iakio/smarty3.vim'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'pangloss/vim-javascript'
+Bundle 'StanAngeloff/php.vim'
 " Sets indent mode based on filetype
 filetype plugin indent on
 " Leader key
