@@ -21,6 +21,7 @@ Bundle 'iakio/smarty3.vim'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'pangloss/vim-javascript'
 Bundle 'StanAngeloff/php.vim'
+Bundle 'jelera/vim-nazca-colorscheme'
 " Sets indent mode based on filetype
 filetype plugin indent on
 " Leader key
