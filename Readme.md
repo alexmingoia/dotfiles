@@ -1,8 +1,6 @@
 # Dotfiles
 
-A collection of scripts and configurations that comprise my local OS X setup.
-
-Take what you want.
+A collection of scripts and configurations that comprise my local OS X setup. Take what you like.
 
 ## Requirements
 
