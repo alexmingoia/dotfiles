@@ -19,6 +19,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'othree/html5.vim'
 Bundle 'iakio/smarty3.vim'
 Bundle 'jnwhiteh/vim-golang'
+Bundle 'pangloss/vim-javascript'
 " Sets indent mode based on filetype
 filetype plugin indent on
 " Leader key
