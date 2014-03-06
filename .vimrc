@@ -22,8 +22,13 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'pangloss/vim-javascript'
 Bundle 'StanAngeloff/php.vim'
 Bundle 'jelera/vim-nazca-colorscheme'
+Bundle 'vim-jp/cpp-vim'
+Bundle '29decibel/codeschool-vim-theme'
+Bundle 'tomasr/molokai'
 " Sets indent mode based on filetype
 filetype plugin indent on
+" enable chicken scheme mode
+let g:is_chicken=1
 " Leader key
 let mapleader = ","
 " Share OS clipboard
@@ -47,7 +52,7 @@ set wrap
 " Always show line/column number
 set ruler
 " Ignore certain things
-set wildignore+=public/build,.git,*/node_modules/*,*/deps/go/*
+set wildignore+=build,public/build,.git,node_modules,*/deps/go/*
 " Colors!
 colorscheme nazca
 " Syntax highlighting
