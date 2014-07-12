@@ -15,6 +15,7 @@ call vundle#rc()
 " Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 " Bundles
+Bundle 'jpalardy/vim-slime'
 Bundle 'kien/ctrlp.vim'
 Bundle 'othree/html5.vim'
 Bundle 'iakio/smarty3.vim'
@@ -25,6 +26,8 @@ Bundle 'jelera/vim-nazca-colorscheme'
 Bundle 'vim-jp/cpp-vim'
 Bundle '29decibel/codeschool-vim-theme'
 Bundle 'tomasr/molokai'
+" Use tmux for slime
+let g:slime_target = "tmux"
 " Sets indent mode based on filetype
 filetype plugin indent on
 " enable chicken scheme mode
@@ -70,7 +73,7 @@ set listchars=tab:▸▸,trail:¬ " Show tab character and trailing characters
 " PHP indentation uses spaces and 4 spaces for each tab per PSR guidelines
 autocmd FileType php setlocal shiftwidth=4 tabstop=4 expandtab
 " HTML indentation uses spaces and 4 spaces for each tab
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 expandtab
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 expandtab
 " Go indentation uses tabs
 autocmd FileType go setlocal shiftwidth=1 tabstop=3 noexpandtab
 autocmd FileType go setlocal listchars=tab:\ \ ,trail:¬ " Show trailing chars
