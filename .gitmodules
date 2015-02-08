@@ -1,6 +1,0 @@
-[submodule ".bin/vim-bundle"]
-	path = .bin/vim-bundle
-	url = https://github.com/benmills/vim-bundle.git
-[submodule ".vim/bundle/vundle"]
-	path = .vim/bundle/vundle
-	url = https://github.com/gmarik/vundle.git

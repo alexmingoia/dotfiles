@@ -1,7 +1,10 @@
-" Be IMproved
-set nocompatible
-" Required by Vundle
-filetype off
+" Automatically setup Vundle on first run
+if !isdirectory(expand("~/.vim/bundle/vundle"))
+    call system("git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle")
+endif
+
+set nocompatible " Be IMproved
+
 " Recognize file types by extension
 autocmd BufEnter *.php set filetype=php
 autocmd BufEnter *.less set filetype=less
@@ -9,12 +12,12 @@ autocmd BufEnter *.js set filetype=javascript
 autocmd BufEnter *.json set filetype=javascript
 autocmd BufEnter *.ejs set filetype=html
 autocmd BufEnter *.go set filetype=go
+
 " Vundle
+filetype off " Required by Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-" Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
-" Bundles
 Bundle 'jpalardy/vim-slime'
 Bundle 'kien/ctrlp.vim'
 Bundle 'othree/html5.vim'
@@ -26,6 +29,13 @@ Bundle 'jelera/vim-nazca-colorscheme'
 Bundle 'vim-jp/cpp-vim'
 Bundle '29decibel/codeschool-vim-theme'
 Bundle 'tomasr/molokai'
+
+" Automatically install bundles on first run
+if !isdirectory(expand("~/.vim/bundle/vim-airline"))
+    execute 'silent BundleInstall'
+    execute 'silent q'
+endif
+
 " Use tmux for slime
 let g:slime_target = "tmux"
 " Sets indent mode based on filetype
