@@ -8,7 +8,6 @@ PS1="λ \W\$(parse_git_branch): "
 cd ~/Projects
 
 # PATHs
-#export NODE_CONFIG_PATH="/Users/alex/.bloodhound"
 export GOPATH="/usr/local/go"
 export NODE_PATH="/usr/local/share/npm/lib/node_modules"
 export GEM_HOME="/usr/local/lib/ruby/gems"
