@@ -55,8 +55,8 @@ set autoindent                  " Indent automatically
 set cindent                     " Syntax aware auto-indent
 set nofoldenable                " Do not fold code
 set backspace=indent,eol,start  " Set backspace to work for all characters
-set list                        " Default indentation and whitespace display
-set listchars=tab:▸▸,trail:¬    " Show tab character and trailing characters
+set list                        " Show tab and other whitespace characters
+set listchars=tab:▸▸,trail:¬    " Specify tab display character and trailing characters
 set expandtab                   " Spaces for tabs
 set smarttab                    " <BS> deletes a shiftwidth worth of space
 set tabstop=4                   " 2 spaces for each tab in file
@@ -64,7 +64,7 @@ set softtabstop=4               " 2 spaces for pressing tab key
 set shiftwidth=4                " 2 spaces for indentation
 
 " Smaller indents on css and html files
-autocmd! Syntax css,html,htmldjango,js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd Filetype css,html,javascript,json setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Leader key
 let mapleader = ","
