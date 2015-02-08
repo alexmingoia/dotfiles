@@ -41,57 +41,36 @@ if !isdirectory(expand("~/.vim/bundle/vim-airline"))
     execute 'silent q'
 endif
 
-" Use tmux for slime
-let g:slime_target = "tmux"
-" Sets indent mode based on filetype
-filetype plugin indent on
-" enable chicken scheme mode
-let g:is_chicken=1
-" Leader key
-let mapleader = ","
-" Share OS clipboard
-set clipboard=unnamed
-" Allow mouse usage in terminal
-set mouse=a
-" Show last status
-set laststatus=2
-" Show line numbers
-set number
+colorscheme nazca               " Colors!
+let g:slime_target = "tmux"     " Use tmux for slime
+filetype plugin indent on       " Sets indent mode based on filetype
+syntax on                       " Syntax highlighting
+set autoindent                  " Indent automatically
+set backspace=indent,eol,start  " Set backspace to work for all characters
+set list                        " Default indentation and whitespace display
+set expandtab                   " Spaces for tabs
+set tabstop=2                   " 2 spaces for each tab
+set shiftwidth=2                " 2 spaces for indentation
+set listchars=tab:▸▸,trail:¬    " Show tab character and trailing characters
+let g:is_chicken=1              " enable chicken scheme mode
+let mapleader = ","             " Leader key
+set clipboard=unnamed           " Share OS clipboard
+set mouse=a                     " Allow mouse usage in terminal
+set laststatus=2                " Show last status
+set number                      " Show line numbers
+set nofoldenable                " Do not fold code
+set textwidth=80                " Maximum line text width
+set wrap                        " Wrap lines visually
+set ruler                       " Always show line/column number
+
 " Do not create swap files
 set nobackup
 set nowritebackup
 set noswapfile
-" Do not fold code
-set nofoldenable
-" Maximum line text width
-set textwidth=80
-" Wrap lines visually
-set wrap
-" Always show line/column number
-set ruler
+
 " Ignore certain things
 set wildignore+=build,public/build,.git,node_modules,*/deps/go/*
-" Colors!
-colorscheme nazca
-" Syntax highlighting
-syntax on
-" Indent automatically
-set autoindent
-" Set backspace to work for all characters
-set backspace=indent,eol,start
-" Default indentation and whitespace display
-set list
-set expandtab " Spaces for tabs
-set tabstop=2 " 2 spaces for each tab
-set shiftwidth=2 " 2 spaces for indentation
-set listchars=tab:▸▸,trail:¬ " Show tab character and trailing characters
-" PHP indentation uses spaces and 4 spaces for each tab per PSR guidelines
-autocmd FileType php setlocal shiftwidth=4 tabstop=4 expandtab
-" HTML indentation uses spaces and 4 spaces for each tab
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 expandtab
-" Go indentation uses tabs
-autocmd FileType go setlocal shiftwidth=1 tabstop=3 noexpandtab
-autocmd FileType go setlocal listchars=tab:\ \ ,trail:¬ " Show trailing chars
+
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = ''
