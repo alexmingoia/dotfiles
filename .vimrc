@@ -10,9 +10,9 @@ filetype off " Required by Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
+Bundle 'ryanss/vim-hackernews'
 Bundle 'jpalardy/vim-slime'
 Bundle 'kien/ctrlp.vim'
-Bundle 'fholgado/minibufexpl.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/vim-easymotion'
@@ -25,6 +25,7 @@ Bundle 'othree/html5.vim'
 Bundle 'StanAngeloff/php.vim'
 Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
+Bundle 'editorconfig/editorconfig-vim'
 
 " Automatically install bundles on first run
 if !isdirectory(expand("~/.vim/bundle/vim-airline"))
@@ -55,8 +56,8 @@ set autoindent                  " Indent automatically
 set cindent                     " Syntax aware auto-indent
 set nofoldenable                " Do not fold code
 set backspace=indent,eol,start  " Set backspace to work for all characters
-set list                        " Show tab and other whitespace characters
-set listchars=tab:▸▸,trail:¬    " Specify tab display character and trailing characters
+"set list                       " Show tab and other whitespace characters
+"set listchars=tab:▸▸,trail:¬   " Specify tab display character and trailing characters
 set expandtab                   " Spaces for tabs
 set smarttab                    " <BS> deletes a shiftwidth worth of space
 set tabstop=4                   " 2 spaces for each tab in file
@@ -79,8 +80,8 @@ set smartcase                   " Only if all characters are lower case
 set incsearch                   " Highlight matches while typing search
 set hlsearch                    " Keep previous search highlighted
 
-" Turn off highlighting of previous search
-noremap <C-n> :nohlsearch<CR>
+" Press <esc> to clear previous search highlight
+nnoremap <Leader>s :noh<CR>
 
 let g:slime_target = "tmux"     " Use tmux for slime
 let g:is_chicken=1              " enable chicken scheme mode
@@ -143,3 +144,23 @@ augroup whitespace
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd BufWritePre * :%s/\($\n\s*\)\+\%$//e
 augroup END
+
+function! SaveAll()
+    "" Save number of current buffer.
+    let l:current_buffer = bufnr("%")
+    let p1 = bufnr("*/BC/*.js")
+    let p2 = bufnr("*/BC/**/*.js")
+
+    "" Save all buffers
+    bufdo wa
+
+    "" Bufdo probably changed the buffer, so return to where we were before running previous command.
+    execute "buffer " . l:current_buffer
+
+    "" Run command
+    if p1 != -1 || p2 != -1
+        silent execute "!bash -c \"cd ~/Projects/BC/vagrant; vagrant ssh -c 'pkill -HUP node' >/dev/null 2>&1 &\"" | redraw!
+    endif
+endfunction
+
+nnoremap ,wa :call SaveAll()<CR>
