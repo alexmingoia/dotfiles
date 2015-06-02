@@ -26,12 +26,17 @@ Bundle 'StanAngeloff/php.vim'
 Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'editorconfig/editorconfig-vim'
+Bundle 'terryma/vim-expand-region'
 
 " Automatically install bundles on first run
 if !isdirectory(expand("~/.vim/bundle/vim-airline"))
     execute 'silent BundleInstall'
     execute 'silent q'
 endif
+
+" map region expansion to v
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 syntax on                       " Syntax highlighting
 filetype plugin indent on       " Sets indent mode based on filetype
