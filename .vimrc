@@ -27,16 +27,13 @@ Bundle 'tomasr/molokai'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'terryma/vim-expand-region'
+Bundle 'christoomey/vim-tmux-navigator'
 
 " Automatically install bundles on first run
 if !isdirectory(expand("~/.vim/bundle/vim-airline"))
     execute 'silent BundleInstall'
     execute 'silent q'
 endif
-
-" map region expansion to v
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
 
 syntax on                       " Syntax highlighting
 filetype plugin indent on       " Sets indent mode based on filetype
@@ -53,21 +50,26 @@ set splitright                  " open vertical split right of current window
 set sidescroll=3                " scroll sideways 3 characters at a time
 set textwidth=80                " Maximum line text width
 
+set foldmethod=indent           " Fold based on indent
+set foldnestmax=3               " Deepest fold is 3 levels
+set nofoldenable                " Dont fold by default
+
 set showcmd                     " Show command line at bottom of screen
 set laststatus=2                " Show last status
 set visualbell                  " use visual bell instead of beeping
 
 set autoindent                  " Indent automatically
 set cindent                     " Syntax aware auto-indent
-set nofoldenable                " Do not fold code
 set backspace=indent,eol,start  " Set backspace to work for all characters
-"set list                       " Show tab and other whitespace characters
-"set listchars=tab:▸▸,trail:¬   " Specify tab display character and trailing characters
+
 set expandtab                   " Spaces for tabs
 set smarttab                    " <BS> deletes a shiftwidth worth of space
 set tabstop=4                   " 2 spaces for each tab in file
 set softtabstop=4               " 2 spaces for pressing tab key
 set shiftwidth=4                " 2 spaces for indentation
+
+" Use same pane split character as tmux
+set fillchars+=vert:│
 
 " Smaller indents on css and html files
 autocmd Filetype css,html,javascript,json setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -85,9 +87,6 @@ set smartcase                   " Only if all characters are lower case
 set incsearch                   " Highlight matches while typing search
 set hlsearch                    " Keep previous search highlighted
 
-" Press <esc> to clear previous search highlight
-nnoremap <Leader>s :noh<CR>
-
 let g:slime_target = "tmux"     " Use tmux for slime
 let g:is_chicken=1              " enable chicken scheme mode
 
@@ -104,9 +103,26 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = ''
 nmap <Leader>p :CtrlP<CR>
 
-" Font
-set guioptions=
-set guifont=Menlo:h14
+" Press <esc> to clear previous search highlight
+nnoremap <Leader>s :noh<CR>
+
+" map region expansion to v
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Easier split-pane navigation
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-k> :wincmd k<CR>
+
+" tmux
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-g> :TmuxNavigatePrevious<cr>
 
 " Git/fugitive shortcuts
 nnoremap <Leader>gs :Gstatus<CR>
@@ -149,23 +165,3 @@ augroup whitespace
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd BufWritePre * :%s/\($\n\s*\)\+\%$//e
 augroup END
-
-function! SaveAll()
-    "" Save number of current buffer.
-    let l:current_buffer = bufnr("%")
-    let p1 = bufnr("*/BC/*.js")
-    let p2 = bufnr("*/BC/**/*.js")
-
-    "" Save all buffers
-    bufdo wa
-
-    "" Bufdo probably changed the buffer, so return to where we were before running previous command.
-    execute "buffer " . l:current_buffer
-
-    "" Run command
-    if p1 != -1 || p2 != -1
-        silent execute "!bash -c \"cd ~/Projects/BC/vagrant; vagrant ssh -c 'pkill -HUP node' >/dev/null 2>&1 &\"" | redraw!
-    endif
-endfunction
-
-nnoremap ,wa :call SaveAll()<CR>
