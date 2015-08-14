@@ -28,6 +28,7 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'terryma/vim-expand-region'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'scrooloose/syntastic'
 
 " Automatically install bundles on first run
 if !isdirectory(expand("~/.vim/bundle/vim-airline"))
@@ -146,6 +147,7 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_section_y = airline#section#create(['%p', '%%'])
 let g:airline_section_z = airline#section#create_right(['%l', '%c'])
+let g:airline#extensions#syntastic#enabled = 1
 
 " Closetag settings
 let g:closetag_html_style=1
@@ -165,3 +167,11 @@ augroup whitespace
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd BufWritePre * :%s/\($\n\s*\)\+\%$//e
 augroup END
+
+" Syntastic
+let g:syntastic_javascript_checkers = ["eslint"]
+let g:syntastic_enable_signs = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
