@@ -9,19 +9,26 @@ set nocompatible " Be IMproved
 filetype off " Required by Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ryanss/vim-hackernews'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'mtscout6/syntastic-local-eslint.vim' " Prefers local node_modules/eslint for syntastic
+
+" Prefers local node_modules/eslint for syntastic
+Plugin 'mtscout6/syntastic-local-eslint.vim'
+
+" Requires custom shell colors or iTerm colors from https://github.com/chriskempson/base16-iterm2
 Plugin 'chriskempson/base16-vim'
+
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'pangloss/vim-javascript'
 Plugin 'raichoo/purescript-vim'
 Plugin 'frigoeu/psc-ide-vim'
+
 call vundle#end()
 
 " Automatically install bundles on first run
@@ -30,7 +37,7 @@ if !isdirectory(expand("~/.vim/bundle/syntastic"))
     execute 'silent q'
 endif
 
-syntax on 
+syntax on
 filetype plugin indent on       " Sets indent mode based on filetype
 syntax enable
 set background=dark
