@@ -4,5 +4,5 @@
 
 ## Vim plugin installation
 
-After symlinking or copying the `.vimrc` to your home folder, run vim and execute `:BundleInstall`.
-This will download and install all the vim bundles listed in your `~/.vimrc`.
+After symlinking or copying the `.vimrc` to your home folder, run vim and it
+will automatically install Vundle and related plugins. 
