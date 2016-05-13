@@ -1,44 +1,40 @@
 " Automatically setup Vundle on first run
-if !isdirectory(expand("~/.vim/bundle/vundle"))
-    call system("git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle")
+if !isdirectory(expand("~/.vim/bundle"))
+    call system("git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
 endif
 
 set nocompatible " Be IMproved
 
 " Vundle
 filetype off " Required by Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'ryanss/vim-hackernews'
-Bundle 'jpalardy/vim-slime'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'bling/vim-airline'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'vim-scripts/closetag.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'vim-jp/cpp-vim'
-Bundle 'fatih/vim-go'
-Bundle 'othree/html5.vim'
-Bundle 'StanAngeloff/php.vim'
-Bundle 'tomasr/molokai'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'editorconfig/editorconfig-vim'
-Bundle 'terryma/vim-expand-region'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'scrooloose/syntastic'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ryanss/vim-hackernews'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'mtscout6/syntastic-local-eslint.vim' " Prefers local node_modules/eslint for syntastic
+Plugin 'chriskempson/base16-vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'pangloss/vim-javascript'
+Plugin 'raichoo/purescript-vim'
+Plugin 'frigoeu/psc-ide-vim'
+call vundle#end()
 
 " Automatically install bundles on first run
-if !isdirectory(expand("~/.vim/bundle/vim-airline"))
-    execute 'silent BundleInstall'
+if !isdirectory(expand("~/.vim/bundle/syntastic"))
+    execute 'silent PluginInstall'
     execute 'silent q'
 endif
 
-syntax on                       " Syntax highlighting
+syntax on 
 filetype plugin indent on       " Sets indent mode based on filetype
-colorscheme jellybeans          " Default color scheme
+syntax enable
+set background=dark
+colorscheme base16-tomorrow     " Default color scheme
 
 set clipboard=unnamed           " Share OS clipboard
 set encoding=utf-8              " default character encoding
@@ -69,16 +65,14 @@ set tabstop=4                   " 2 spaces for each tab in file
 set softtabstop=4               " 2 spaces for pressing tab key
 set shiftwidth=4                " 2 spaces for indentation
 
-" Use same pane split character as tmux
-set fillchars+=vert:│
-
-" Smaller indents on css and html files
-autocmd Filetype css,html,javascript,json setlocal shiftwidth=2 tabstop=2 softtabstop=2
-
 " Leader key
 let mapleader = ","
 let g:mapleader = ","
 let g:user_emmet_leader_key = '<C-e>'
+
+map <tab> :bn<cr>               " Next buffer
+map <S-tab> :bp<cr>             " Previous buffer
+map <S-q> :bd<cr>               " Close buffer
 
 set mouse=a                     " Allow mouse usage in terminal
 
@@ -88,21 +82,21 @@ set smartcase                   " Only if all characters are lower case
 set incsearch                   " Highlight matches while typing search
 set hlsearch                    " Keep previous search highlighted
 
-let g:slime_target = "tmux"     " Use tmux for slime
-let g:is_chicken=1              " enable chicken scheme mode
+" Use same pane split character as tmux
+set fillchars+=vert:│
 
 " Do not create swap files
 set nobackup
 set nowritebackup
 set noswapfile
 
-" Ignore certain things
-set wildignore+=build,public/build,.git,node_modules,*/deps/go/*
-
 " CtrlP
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+set rtp+=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = ''
 nmap <Leader>p :CtrlP<CR>
+
+" Ignore certain things
+set wildignore+=output,dist,bower_components,build,.git,node_modules,_book
 
 " Press <esc> to clear previous search highlight
 nnoremap <Leader>s :noh<CR>
@@ -135,43 +129,17 @@ nnoremap <Leader>gp :Git push<CR>
 map <SPACE> <Plug>(easymotion-s2)
 map <Leader>a <Plug>(EasyAlign)
 
-" Airline customizations
-if !exists("g:airline_symbols")
-    let g:airline_symbols = {}
-endif
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_section_y = airline#section#create(['%p', '%%'])
-let g:airline_section_z = airline#section#create_right(['%l', '%c'])
-let g:airline#extensions#syntastic#enabled = 1
-
-" Closetag settings
-let g:closetag_html_style=1
-autocmd! FileType html,htmldjango source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-
-" Highlight characters when lines get too long
-autocmd! BufWinEnter *.py,*.vim,vimrc match ErrorMsg '\%>79v.\+'
-autocmd! BufWinEnter *.html match ErrorMsg '\%>100v.\+'
-
-" Automatically wrap text while typing in Markdown and rST documents
-autocmd! BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd! Filetype markdown,rst set textwidth=79
-
-" Remove trailing whitespace and empty lines at end of file
-augroup whitespace
-    autocmd!
-    autocmd BufWritePre * :%s/\s\+$//e
-    autocmd BufWritePre * :%s/\($\n\s*\)\+\%$//e
-augroup END
-
 " Syntastic
-let g:syntastic_javascript_checkers = ["eslint"]
-let g:syntastic_enable_signs = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'bubblegum'
+let g:airline_skip_empty_sections = 1
