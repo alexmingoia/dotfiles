@@ -42,6 +42,7 @@ filetype plugin indent on       " Sets indent mode based on filetype
 syntax enable
 set background=dark
 colorscheme base16-tomorrow     " Default color scheme
+highlight LineNr   ctermfg=darkgrey ctermbg=black
 
 set clipboard=unnamed           " Share OS clipboard
 set encoding=utf-8              " default character encoding
@@ -128,6 +129,7 @@ nnoremap <silent> <c-g> :TmuxNavigatePrevious<cr>
 
 " Git/fugitive shortcuts
 nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gf <C-W>h<C-W>czR
 nnoremap <Leader>gp :Git push<CR>
@@ -150,3 +152,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 let g:airline_skip_empty_sections = 1
+
+" PureScript IDE
+au FileType purescript nmap <leader>t :PSCIDEtype<CR>
+au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
+au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
+au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
+au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
+au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
