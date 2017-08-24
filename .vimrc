@@ -27,9 +27,17 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'pangloss/vim-javascript'
 Plugin 'raichoo/purescript-vim'
-Plugin 'frigoeu/psc-ide-vim'
+Plugin 'FrigoEU/psc-ide-vim'
+Plugin 'tomlion/vim-solidity'
+Plugin 'nvie/vim-flake8'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 
 call vundle#end()
+
+" markdown preview options
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_github=1
+let vim_markdown_preview_browser='Firefox'
 
 " Automatically install bundles on first run
 if !isdirectory(expand("~/.vim/bundle/syntastic"))
@@ -48,12 +56,13 @@ set clipboard=unnamed           " Share OS clipboard
 set encoding=utf-8              " default character encoding
 set hidden                      " do not unload buffers that get hidden
 
-set nowrap                      " Do not wrap lines visually
+set wrap                        " Wrap lines visually
 set number                      " Show line numbers
 set scrolloff=3                 " keep minimal number of lines above/below cursor
 set splitright                  " open vertical split right of current window
 set sidescroll=3                " scroll sideways 3 characters at a time
-set textwidth=80                " Maximum line text width
+set textwidth=0                 " Maximum line text width
+set colorcolumn=120             " show max line-width
 
 set foldmethod=indent           " Fold based on indent
 set foldnestmax=3               " Deepest fold is 3 levels
@@ -107,7 +116,7 @@ nmap <Leader>p :CtrlP<CR>
 set wildignore+=output,dist,bower_components,build,.git,node_modules,_book
 
 " Press <esc> to clear previous search highlight
-nnoremap <Leader>s :noh<CR>
+nnoremap <Leader>c :noh<CR>
 
 " map region expansion to v
 vmap v <Plug>(expand_region_expand)
@@ -118,14 +127,6 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-k> :wincmd k<CR>
-
-" tmux
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c-g> :TmuxNavigatePrevious<cr>
 
 " Git/fugitive shortcuts
 nnoremap <Leader>gs :Gstatus<CR>
@@ -138,25 +139,38 @@ nnoremap <Leader>gp :Git push<CR>
 map <SPACE> <Plug>(easymotion-s2)
 map <Leader>a <Plug>(EasyAlign)
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 let g:airline_skip_empty_sections = 1
 
-" PureScript IDE
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_debug = 3
+
+" Python
+let python_highlight_all=1
+
+" PureScript
 au FileType purescript nmap <leader>t :PSCIDEtype<CR>
 au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
 au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
 au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
 au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
 au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
+
+let g:purescript_indent_if = 0
+let g:purescript_indent_case = 0
+let g:purescript_indent_let = 0
+let g:purescript_indent_where = 0
+let g:purescript_indent_do = 0
+
+let g:psc_ide_syntastic_mode = 1
