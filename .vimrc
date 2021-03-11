@@ -1,48 +1,46 @@
-" Automatically setup Vundle on first run
-if !isdirectory(expand("~/.vim/bundle"))
-    call system("git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
+"let $NVIM_COC_LOG_LEVEL = 'debug'
+
+" Automatically setup vim-plug on first run
+if !isdirectory(expand("~/.vim/plugged"))
+	call system("curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
 endif
 
 set nocompatible " Be IMproved
 
-" Vundle
-filetype off " Required by Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" vim-plug
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'ryanss/vim-hackernews'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'scrooloose/syntastic'
+" Fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
 
-" Prefers local node_modules/eslint for syntastic
-Plugin 'mtscout6/syntastic-local-eslint.vim'
+" Git wrapper for vim
+Plug 'tpope/vim-fugitive'
 
-" Requires custom shell colors or iTerm colors from https://github.com/chriskempson/base16-iterm2
-Plugin 'chriskempson/base16-vim'
+" Syntax checking
+Plug 'editorconfig/editorconfig-vim'
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'pangloss/vim-javascript'
-Plugin 'raichoo/purescript-vim'
-Plugin 'FrigoEU/psc-ide-vim'
-Plugin 'tomlion/vim-solidity'
-Plugin 'nvie/vim-flake8'
-Plugin 'JamshedVesuna/vim-markdown-preview'
+" Color scheme
+Plug 'chriskempson/base16-vim'
 
-call vundle#end()
+" Status bar plugins
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-" markdown preview options
-let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Firefox'
+" Language plugins
+Plug 'pangloss/vim-javascript'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'sdiehl/vim-ormolu' "Haskell Formatting
+
+" FFI
+Plug 'shime/vim-livedown'
+
+" Initialize plugin system
+call plug#end()
 
 " Automatically install bundles on first run
-if !isdirectory(expand("~/.vim/bundle/syntastic"))
-    execute 'silent PluginInstall'
-    execute 'silent q'
+if !isdirectory(expand("~/.vim/plugged/ctrlp.vim"))
+	execute 'silent PlugInstall'
+	execute 'silent q'
 endif
 
 syntax on
@@ -51,6 +49,7 @@ syntax enable
 set background=dark
 colorscheme base16-tomorrow     " Default color scheme
 highlight LineNr   ctermfg=darkgrey ctermbg=black
+highlight Pmenu    ctermfg=lightgrey ctermbg=black guifg=lightgrey guibg=black
 
 set clipboard=unnamed           " Share OS clipboard
 set encoding=utf-8              " default character encoding
@@ -63,24 +62,29 @@ set splitright                  " open vertical split right of current window
 set sidescroll=3                " scroll sideways 3 characters at a time
 set textwidth=0                 " Maximum line text width
 set colorcolumn=120             " show max line-width
+set cmdheight=2                 " better display for messages
 
 set foldmethod=indent           " Fold based on indent
 set foldnestmax=3               " Deepest fold is 3 levels
 set nofoldenable                " Dont fold by default
 
+set shortmess+=c                " don't give ins-completion-menu messages
 set showcmd                     " Show command line at bottom of screen
 set laststatus=2                " Show last status
 set visualbell                  " use visual bell instead of beeping
+set signcolumn=yes              " always show sign column
 
 set autoindent                  " Indent automatically
-set cindent                     " Syntax aware auto-indent
 set backspace=indent,eol,start  " Set backspace to work for all characters
 
-set expandtab                   " Spaces for tabs
+set noexpandtab                 " Use tabs for tabs
 set smarttab                    " <BS> deletes a shiftwidth worth of space
-set tabstop=4                   " 2 spaces for each tab in file
-set softtabstop=4               " 2 spaces for pressing tab key
-set shiftwidth=4                " 2 spaces for indentation
+set tabstop=2                   " 2 spaces for each tab in file
+set softtabstop=2               " 2 spaces for pressing tab key
+set shiftwidth=2                " 2 spaces for indentation
+set nojoinspaces                " Do not insert two spaces after a '.'
+
+set updatetime=2000              " diagnostic message update time
 
 " Leader key
 let mapleader = ","
@@ -113,7 +117,7 @@ let g:ctrlp_working_path_mode = ''
 nmap <Leader>p :CtrlP<CR>
 
 " Ignore certain things
-set wildignore+=output,dist,bower_components,build,.git,node_modules,_book
+set wildignore+=target,output,dist,bower_components,build,.git,node_modules,_book
 
 " Press <esc> to clear previous search highlight
 nnoremap <Leader>c :noh<CR>
@@ -130,14 +134,83 @@ nmap <silent> <c-k> :wincmd k<CR>
 
 " Git/fugitive shortcuts
 nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gc :Gcommit -a<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gf <C-W>h<C-W>czR
 nnoremap <Leader>gp :Git push<CR>
 
-" Mappings for misc plugins
-map <SPACE> <Plug>(easymotion-s2)
-map <Leader>a <Plug>(EasyAlign)
+" Hindent
+let g:hindent_on_save = 0
+
+" Mappings for CoC
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <leader>d <Plug>(coc-definition)
+nmap <leader>t <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+" set statusline^=%{coc#status()}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -145,32 +218,23 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 let g:airline_skip_empty_sections = 1
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-"let g:syntastic_debug = 3
+" function to toggle loc list with a single key
+let g:localopen = 0
+function ToggleLocListLocal()
+	if g:localopen
+		let g:localopen = 0
+		lclose
+	else
+		let g:localopen = 1
+		lopen
+	endif
+endfunction
+
+nnoremap <Leader>e :call ToggleLocListLocal()<CR>
 
 " Python
 let python_highlight_all=1
 
-" PureScript
-au FileType purescript nmap <leader>t :PSCIDEtype<CR>
-au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
-au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
-au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
-au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
-au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
-
-let g:purescript_indent_if = 0
-let g:purescript_indent_case = 0
-let g:purescript_indent_let = 0
-let g:purescript_indent_where = 0
-let g:purescript_indent_do = 0
-
-let g:psc_ide_syntastic_mode = 1
+" Markdown
+nmap <LEADER>m :LivedownToggle<CR>
+let g:livedown_browser = "safari"
