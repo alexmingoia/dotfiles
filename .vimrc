@@ -57,12 +57,13 @@ set encoding=utf-8              " default character encoding
 set hidden                      " do not unload buffers that get hidden
 
 set wrap                        " Wrap lines visually
+set linebreak                   " Only wrap at linebreaks
 set number                      " Show line numbers
 set scrolloff=3                 " keep minimal number of lines above/below cursor
 set splitright                  " open vertical split right of current window
 set sidescroll=3                " scroll sideways 3 characters at a time
 set textwidth=0                 " Maximum line text width
-set colorcolumn=120             " show max line-width
+set colorcolumn=80              " show max line-width
 set cmdheight=2                 " better display for messages
 
 set foldmethod=indent           " Fold based on indent
