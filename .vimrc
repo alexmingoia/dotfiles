@@ -30,6 +30,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'pangloss/vim-javascript'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'sdiehl/vim-ormolu' "Haskell Formatting
+Plug 'rust-lang/rust.vim'
 
 " FFI
 Plug 'shime/vim-livedown'
