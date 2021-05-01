@@ -116,10 +116,11 @@ set noswapfile
 " CtrlP
 set rtp+=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = ''
+let g:ctrlp_user_command = [
+    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+    \ 'find %s -type f'
+    \ ]
 nmap <Leader>p :CtrlP<CR>
-
-" Ignore certain things
-set wildignore+=target,output,dist,bower_components,build,.git,node_modules,_book
 
 " Press <esc> to clear previous search highlight
 nnoremap <Leader>c :noh<CR>
