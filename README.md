@@ -1,6 +1,6 @@
 # dotfiles
 
-My OS X setup using [Nushell](https://www.nushell.sh) and [Helix](https://helix-editor.com) editor. Take what you like.
+My MacOS setup using [Nushell](https://www.nushell.sh) and [Helix](https://helix-editor.com) editor. Take what you like.
   
 ## Configuration
 
