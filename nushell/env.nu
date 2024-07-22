@@ -68,14 +68,13 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 $env.PATH = ($env.PATH | prepend '/usr/local/bin' | prepend '~/.cargo/bin' | prepend '/opt/homebrew/bin' | prepend '~/go/bin')
+
+source ~/.dotfiles/nushell/git-completions.nu
+
 $env.EDITOR = "hx"
-$env.MYHELPCONNECT_HOST = "23.239.27.206"
-$env.WEB_HOST = "66.175.215.139"
-
-
-cd ~/Projects
 
 # Ensure GPG works to sign Git commits
 $env.GPG_TTY = (tty)
 
-source ~/.dotfiles/nushell/git-completions.nu
+# environment specific things like secrets
+source ~/.env.nu
