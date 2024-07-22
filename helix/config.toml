@@ -1,1 +1,4 @@
 theme = "tomorrow_night_2022"
+
+[editor.soft-wrap]
+enable = true
