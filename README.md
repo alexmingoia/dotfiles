@@ -11,6 +11,7 @@ My MacOS setup using [Nushell](https://www.nushell.sh) and [Helix](https://helix
 5. Install nushell and helix `brew install nushell helix`
 6. Set the default shell to nushell in iTerm2's Settings > Profiles > Default > General, under "Command". Use `which nu` to get the executable path.
 7. Set the colors to match Helix's theme in iTerm2's Settings > Profiles > Default > Colors, then import the color preset from this repository.
+8. Define any user environment variables in `~/.env.nu` (sourced by nushell)
 
 ## Optional
 
