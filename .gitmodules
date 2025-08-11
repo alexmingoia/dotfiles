@@ -1,0 +1,3 @@
+[submodule "sketchybar-app-font"]
+	path = sketchybar-app-font
+	url = git@github.com:kvndrsslr/sketchybar-app-font.git

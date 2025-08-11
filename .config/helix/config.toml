@@ -1,0 +1,7 @@
+theme = "tomorrow_night_2022"
+
+[editor.soft-wrap]
+enable = true
+
+[keys.normal]
+C-B = ":sh git blame -L %{cursor_line},+1 %{buffer_name} | awk '{print $1}' | xargs git show"

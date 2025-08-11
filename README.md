@@ -1,18 +1,26 @@
 # dotfiles
 
-My MacOS setup using [Nushell](https://www.nushell.sh) and [Helix](https://helix-editor.com) editor. Take what you like.
+My MacOS setup. Take what you like.
+
+![Screenshot of desktop configured with dotfiles](dotfiles-desktop.png)
+
+- Window manager: [Aerospace](https://github.com/nikitabobko/AeroSpace)
+- Window focus border: [JenkyBorders](https://github.com/FelixKratz/JankyBorders)
+- Menu bar: [Sketchybar](https://github.com/FelixKratz/SketchyBar)
+- Package manager: [Homebrew](https://brew.sh)
+- Terminal: [iTerm2](https://iterm2.com)
+- Shell: [Nushell](https://www.nushell.sh)
+- Editor: [Helix](https://helix-editor.com)
   
 ## Configuration
 
-1. Install [Homebrew](https://brew.sh) and [iTerm2](https://iterm2.com)
-2. `git clone git@github.com:alexmingoia/dotfiles.git ~/.dotfiles`
-3. Symlink nushell configs `ln -s ~/.dotfiles/nushell ~/Library/Application\ Support/`
-4. Symlink helix configs `ln -s ~/.dotfiles/helix ~/.config/`
-5. Install nushell and helix `brew install nushell helix`
-6. Set the default shell to nushell in iTerm2's Settings > Profiles > Default > General, under "Command". Use `which nu` to get the executable path.
-7. Set the colors to match Helix's theme in iTerm2's Settings > Profiles > Default > Colors, then import the color preset from this repository.
-8. Define any user environment variables in `~/.env.nu` (sourced by nushell)
+Most configuration is done by [`install.sh`](install.sh), with a few manual steps.
 
-## Optional
+```sh
+curl -L https://raw.githubusercontent.com/alexmingoia/dotfiles/master/install.sh | sh
+```
 
-- Silence "Last login" on MacOS by symlinking .hushlogin to ~/.hushlogin
+### iTerm2
+
+- Set the default shell to nushell in iTerm2's Settings > Profiles > Default > General, under "Command". Use `which nu` to get the executable path.
+- Set the colors to match Helix's theme in iTerm2's Settings > Profiles > Default > Colors, then import the color preset from this repository.

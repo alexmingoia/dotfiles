@@ -1,28 +1,29 @@
 # Nushell Environment Config File
 
 def create_left_prompt [] {
-    let path_segment = if (is-admin) {
-        $"(ansi red_bold)($env.PWD | path basename)"
-    } else {
-        $"(ansi green_bold)($env.PWD | path basename)"
-    }
-
-    $path_segment
+    ""
 }
 
 def create_right_prompt [] {
+    let path_segment = if ($env.PWD == $nu.home-path) {
+        "~"    
+    } else {
+        $"($env.PWD | path basename)"
+    }
+
     let branch_segment = (
         if ($'($env.PWD)/.git' | path exists) {
-            $"(git branch --show-current)  "
+            $"(git branch --show-current) "
         } else {
             ''
         }
     )
+
     let time_segment = ([
         (date now | format date '%m/%d/%Y %r')
     ] | str join)
 
-    $'(ansi grey)($branch_segment)(ansi purple)($time_segment)'
+    $'(ansi grey)($branch_segment)(ansi blue)($path_segment)'
 }
 
 # Use nushell functions to define your right and left prompt
@@ -31,7 +32,13 @@ $env.PROMPT_COMMAND_RIGHT = { create_right_prompt }
 
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-$env.PROMPT_INDICATOR = { "〉" }
+$env.PROMPT_INDICATOR = {||
+    if $env.LAST_EXIT_CODE == 0 {
+        $"(ansi green)❯(ansi reset) "
+    } else {
+        $"(ansi red)❯(ansi reset) "
+    }
+}
 $env.PROMPT_INDICATOR_VI_INSERT = { ": " }
 $env.PROMPT_INDICATOR_VI_NORMAL = { "〉" }
 $env.PROMPT_MULTILINE_INDICATOR = { "::: " }
@@ -68,6 +75,8 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 $env.PATH = ($env.PATH | prepend '/usr/local/bin' | prepend '~/.cargo/bin' | prepend '/opt/homebrew/bin' | prepend '~/go/bin')
+$env.CFLAGS = '-I/usr/local/include'
+$env.LDFLAGS = '-L/usr/local/lib'
 
 source ~/.dotfiles/nushell/git-completions.nu
 

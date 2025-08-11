@@ -1,0 +1,21 @@
+[[language]]
+name = "gas"
+indent = { tab-width = 4, unit = "    " }
+
+[[grammar]]
+name = "gas"
+source = { path = "/Users/alex/Projects/tree-sitter-gas" }
+
+# [[grammar]]
+# name = "gas"
+# source = { path = "/Users/alex/Projects/tree-sitter-gas" }
+
+# [language-server.gpt]
+# command = "deno"
+# args = ["run", "--allow-net", "--allow-env", "/Users/alex/Projects/helix-gpt/src/app.ts", "--handler", "openai", "--triggerCharacters ''"]
+
+# [[language]]
+# name = "ruby"
+# language-servers = [
+#   "gpt"
+# ]
