@@ -5,8 +5,6 @@ My MacOS setup. Take what you like.
 ![Screenshot of desktop configured with dotfiles](dotfiles-desktop.png)
 
 - Window manager: [Aerospace](https://github.com/nikitabobko/AeroSpace)
-- Window focus border: [JenkyBorders](https://github.com/FelixKratz/JankyBorders)
-- Menu bar: [Sketchybar](https://github.com/FelixKratz/SketchyBar)
 - Package manager: [Homebrew](https://brew.sh)
 - Terminal: [iTerm2](https://iterm2.com)
 - Shell: [Nushell](https://www.nushell.sh)

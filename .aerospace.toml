@@ -1,12 +1,6 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
-# You can use it to add commands that run after AeroSpace startup.
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = [
-  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0x00000000 width=5.0'
-]
-
 # Start AeroSpace at login
 start-at-login = true
 
@@ -134,6 +128,7 @@ on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_workspace_ch
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
+    cmd-tab = 'focus-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 

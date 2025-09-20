@@ -12,7 +12,7 @@ brew analytics off
 
 ## Taps
 echo "Tapping formulae..."
-brew tap FelixKratz/formulae
+# Taps go here ...
 
 ## Formulae
 echo "Installing formulae..."
@@ -21,7 +21,6 @@ brew install --cask iterm2
 brew install --cask aerospace
 brew install wget
 brew install jq
-brew install sketchybar
 brew install borders
 brew install --cask inkscape
 brew install --cask zoom
@@ -42,8 +41,7 @@ echo "Changing MacOS defaults..."
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.spaces spans-displays -bool false
-defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock "mru-spaces" -bool "false"
+defaults write com.apple.dock autohide -bool true # auto-hide dock
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write NSGlobalDomain KeyRepeat -int 1
@@ -53,16 +51,10 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 defaults write com.apple.screencapture location -string "$HOME/Downloads"
 defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.screencapture type -string "png"
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
-defaults write com.apple.finder ShowStatusBar -bool false
-defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool YES
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
@@ -84,8 +76,6 @@ git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
 
-curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.40/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
-
 # Copy shell configuration
 echo "Copying Nu configuration..."
 touch ~/.env.nu
@@ -99,10 +89,6 @@ ln -s ~/.dotfiles/.config/helix ~/.config/helix
 echo "Copying Aerospace configuration..."
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
 
-# Copy Sketchybar configuration
-echo "Copying Sketchybar configuration..."
-ln -s ~/.dotfiles/.config/sketchybar ~/.config/sketchybar
-
 # Installing helix language server
 git clone https://github.com/estin/simple-completion-language-server.git /tmp/simple-completion-language-server
 (cd /tmp/simple-completion-language-server && cargo install --path .)
@@ -110,4 +96,4 @@ rm -rf /tmp/simple-completion-language-server
 
 # Start services
 echo "Starting services..."
-brew services start sketchybar
+# brew services start <service>
