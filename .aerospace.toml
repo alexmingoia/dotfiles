@@ -115,9 +115,9 @@ on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_workspace_ch
     alt-3 = 'workspace 3'
     alt-4 = 'workspace 4'
     alt-5 = 'workspace 5'
-
-    alt-i = 'exec-and-forget open -n -a /Applications/iTerm.app'
-    alt-s = 'exec-and-forget open -n -a /Applications/Safari.app'
+    alt-s = 'workspace S'
+    alt-w = 'workspace W'
+    alt-m = 'workspace M'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
@@ -125,6 +125,9 @@ on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_workspace_ch
     alt-shift-3 = 'move-node-to-workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4'
     alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-s = 'move-node-to-workspace S'
+    alt-shift-w = 'move-node-to-workspace W'
+    alt-shift-m = 'move-node-to-workspace M'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -154,3 +157,15 @@ on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_workspace_ch
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    run = 'move-node-to-workspace S' # (S)lack - Slack
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Safari'
+    run = 'move-node-to-workspace W' # (W)eb - Safari
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.MobileSMS'
+    run = 'move-node-to-workspace M' # (M)essages - iMessage
