@@ -164,24 +164,32 @@ automatically-unhide-macos-hidden-apps = true
 
 [[on-window-detected]]
     if.app-id = 'com.tinyspeck.slackmacgap'
-    run = 'move-node-to-workspace W' # (W)ork
+    run = 'move-node-to-workspace S'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.MobileSMS'
-    run = 'move-node-to-workspace P' # (P)ersonal
+    run = 'move-node-to-workspace M'
 
 [[on-window-detected]]
     if.app-id = 'com.whispersystems.signal-desktop'
-    run = 'move-node-to-workspace P' # (P)ersonal
+    run = 'move-node-to-workspace M'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.iBooksX'
-    run = 'move-node-to-workspace P' # (P)ersonal
+    run = 'move-node-to-workspace B'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.iCal'
-    run = 'move-node-to-workspace P' # (P)ersonal
+    run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Notes'
+    run = 'move-node-to-workspace N'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Maps'
-    run = 'move-node-to-workspace P' # (P)ersonal
+    run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Safari'
+    run = 'move-node-to-workspace W'
