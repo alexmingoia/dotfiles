@@ -1,89 +1,135 @@
 #!/bin/sh
 
-# Install xCode cli tools
+# Install Xcode cli tools
 echo "Installing commandline tools..."
 xcode-select --install
 
 # Homebrew
-## Install
 echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 
-## Formulae
+# Tools
 echo "Installing formulae..."
-### Essentials
-brew install --cask iterm2
-brew install --cask aerospace
+brew install git
 brew install wget
 brew install jq
-brew install --cask inkscape
-brew install --cask zoom
-brew install --cask vlc
-
-### Terminal
+brew install --cask iterm2
+brew install --cask aerospace
 brew install nushell
 brew install tmux
 brew install helix
-brew install asciinema
-
-### Programming
-brew install git
+brew install mise
 brew install raine/workmux/workmux
-
-### Fonts
 brew install --cask sf-symbols
 brew install --cask font-sf-mono
 brew install --cask font-sf-pro
 brew install --cask font-jetbrains-mono
 
-# macOS Settings
+# MacOS Settings
 echo "Changing MacOS defaults..."
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-defaults write com.apple.spaces spans-displays -bool false
-defaults write com.apple.dock autohide -bool true # auto-hide dock
-defaults write com.apple.LaunchServices LSQuarantine -bool false
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
+# Suppress login shell announcement
+touch "$HOME/.hushlogin"
+echo "  Disabled login shell announcement"
+
+# Save screenshots to dedicated folder
 mkdir -p "$HOME/Screenshots"
 defaults write com.apple.screencapture location -string "$HOME/Screenshots"
 defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.screencapture type -string "png"
+echo "  Set Screen Capture to save png without shadow to ~/Screenshots"
+
+# Disable spaces spanning displays
+defaults write com.apple.spaces spans-displays -bool false
+echo "  Disabled Spaces spanning displays"
+
+# Auto-hide dock
+defaults write com.apple.dock autohide -bool true
+echo "  Set Dock to auto-hide"
+
+# Set minimum key delay
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
+echo "  Set minimum key repeat delay"
+
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+echo "  Set Finder to show all file extensions"
+
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+echo "  Disabled file download quarantine warning"
+
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+echo "  Disabled copying email recipient name to clipboard"
+
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+echo "  Set Finder default search scope to current folder"
+
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+echo "  Set Finder to show POSIX path in title"
+
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+echo "  Set Finder to default to list view"
+
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+echo "  Disabled Finder extension change warning"
+
+# Disable auto-opening Safari downloads and enable developer tools
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
-defaults write -g NSWindowShouldDragOnGesture YES
-touch "$HOME/.hushlogin" # Suppress login shell announcement
+echo "  Disabled Safari auto-open downloads"
+echo "  Enabled Safari Developer Tools"
 
 # Copy and check out configuration files
 echo "Installing dotfiles..."
 [ ! -d "$HOME/.dotfiles" ] && git clone --bare git@github.com:alexmingoia/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
 
-# Link configuration
-echo "Linking configuration files..."
+# Create nushell user env (required by nushell env config)
+touch "$HOME/.env.nu"
 
-touch ~/.env.nu
-[ ! -d "$HOME/Library/Application Support/nushell" ] && ln -s ~/.dotfiles/.config/nushell ~/Library/Application\ Support/
-[ ! -f "$HOME/.tmux.conf" ] && ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
-[ ! -d "$HOME/.config/helix" ] && ln -s ~/.dotfiles/.config/helix ~/.config/helix
-[ ! -f "$HOME/.aerospace.toml" ] && ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
-[ ! -f "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Profiles.json" ] && ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
+# Create ~/.config if needed
+if [ ! -d "$HOME/.config" ]; then
+  mkdir -p "$HOME/.config"
+  echo "  Created ~/.config directory"
+fi
 
-# Start services
-echo "Starting services..."
-# brew services start <service>
+if [ -d "$HOME/Library/Application Support/nushell" ]; then
+  echo "  Skipped Nushell configuration (already exists)"
+else
+  ln -s ~/.dotfiles/.config/nushell ~/Library/Application\ Support/
+  echo "  Linked Nushell configuration to ~/Library/Application Support/nushell"
+fi
 
-echo "Configuration complete."
+if [ -f "$HOME/.tmux.conf" ]; then
+  echo "  Skipped Tmux configuration (already exists)"
+else
+  ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
+  echo "  Linked tmux configuration to ~/.tmux.conf"
+fi
+
+if [ -d "$HOME/.config/helix" ]; then
+  echo "  Skipped Helix configuration (already exists)"
+else
+  ln -s ~/.dotfiles/.config/helix ~/.config/helix
+  echo "  Linked Helix configuration to ~/.config/helix"
+fi
+
+if [ -f "$HOME/.aerospace.toml" ]; then
+  echo "  Skipped Aerospace configuration (already exists)"
+else
+  ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
+  echo "  Linked Aerospace configuration to ~/.aerospace.toml"
+fi
+
+if [ -f "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Profiles.json" ]; then
+  echo "  Skipping iTerm configuration (Dynamic Profiles already exist)"
+else
+  ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
+  echo "  Linked iTerm configuration"
+fi
+
+echo "Installation complete!"
