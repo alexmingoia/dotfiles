@@ -17,7 +17,6 @@ brew install --cask iterm2
 brew install --cask aerospace
 brew install wget
 brew install jq
-brew install borders
 brew install --cask inkscape
 brew install --cask zoom
 brew install --cask vlc
@@ -56,7 +55,8 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
-defaults write com.apple.screencapture location -string "$HOME/Downloads"
+mkdir -p "$HOME/Screenshots"
+defaults write com.apple.screencapture location -string "$HOME/Screenshots"
 defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
