@@ -77,11 +77,6 @@ echo "Downloading dotfiles..."
 [ ! -d "$HOME/.dotfiles" ] && git clone --bare git@github.com:alexmingoia/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
 
-# Installing Fonts
-git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
-mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
-rm -rf /tmp/SFMono_Nerd_Font/
-
 # Copy shell configuration
 echo "Copying Nu configuration..."
 touch ~/.env.nu
@@ -95,11 +90,8 @@ ln -s ~/.dotfiles/.config/helix ~/.config/helix
 echo "Copying Aerospace configuration..."
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
 
-# Installing helix language server
-git clone https://github.com/estin/simple-completion-language-server.git /tmp/simple-completion-language-server
-(cd /tmp/simple-completion-language-server && cargo install --path .)
-rm -rf /tmp/simple-completion-language-server
-
 # Start services
 echo "Starting services..."
 # brew services start <service>
+
+echo "Configuration complete."
