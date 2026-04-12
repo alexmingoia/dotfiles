@@ -78,16 +78,20 @@ echo "Downloading dotfiles..."
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
 
 # Copy shell configuration
-echo "Copying Nu configuration..."
+echo "Linking Nu configuration..."
 touch ~/.env.nu
 ln -s ~/.dotfiles/nushell ~/Library/Application\ Support/`
 
 # Copy editor configuration
-echo "Copying Helix configuration..."
+echo "Linking tmux configuration..."
+ln -s ~/.dotfiles/.config/tmux.conf ~/.tmux.conf
+
+# Copy editor configuration
+echo "Linking Helix configuration..."
 ln -s ~/.dotfiles/.config/helix ~/.config/helix
 
 # Copy Aerospace configuration
-echo "Copying Aerospace configuration..."
+echo "Linking Aerospace configuration..."
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
 
 # Start services
