@@ -78,11 +78,11 @@ touch ~/.hushlogin
 echo "Linking configuration files..."
 
 touch ~/.env.nu
-ln -s ~/.dotfiles/.config/nushell ~/Library/Application\ Support/
-ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
-ln -s ~/.dotfiles/.config/helix ~/.config/helix
-ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
-ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
+[ ! -d "$HOME/Library/Application Support/nushell" ] && ln -s ~/.dotfiles/.config/nushell ~/Library/Application\ Support/
+[ ! "$HOME/.tmux.conf" ] && ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
+[ ! "$HOME/.config/helix" ] && ln -s ~/.dotfiles/.config/helix ~/.config/helix
+[ ! -d "$HOME/.aerospace.toml" ] && ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
+[ ! -d "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Profiles.json" ] && ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
 
 # Start services
 echo "Starting services..."
