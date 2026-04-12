@@ -12,7 +12,6 @@ brew analytics off
 
 ## Taps
 echo "Tapping formulae..."
-# Taps go here ...
 
 ## Formulae
 echo "Installing formulae..."
