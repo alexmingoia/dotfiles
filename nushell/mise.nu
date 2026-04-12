@@ -17,10 +17,7 @@ def --env "update-env" [] {
 }
 export-env {
   
-  'set,PATH,/Users/alex/.local/share/fnm/node-versions/v20.9.0/installation/bin:/opt/homebrew/opt/llvm@13/bin:/Users/alex/.local/bin:/Users/alex/go/bin:/opt/homebrew/bin:/Users/alex/.cargo/bin:/usr/local/bin:/Users/alex/.local/share/fnm/node-versions/v20.9.0/installation/bin:/opt/homebrew/opt/llvm@13/bin:/Users/alex/.local/bin:/Users/alex/go/bin:/opt/homebrew/bin:/Users/alex/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/iTerm.app/Contents/Resources/utilities
-hide,MISE_SHELL,
-hide,__MISE_DIFF,
-hide,__MISE_DIFF,' | parse vars | update-env
+  '' | parse vars | update-env
   $env.MISE_SHELL = "nu"
   let mise_hook = {
     condition: { "MISE_SHELL" in $env }
