@@ -26,8 +26,14 @@ brew install --cask zoom
 brew install --cask vlc
 
 ### Terminal
+brew install nushell
+brew install tmux
 brew install helix
 brew install asciinema
+
+### Programming
+brew install git
+brew install raine/workmux/workmux
 
 ### Fonts
 brew install --cask sf-symbols
