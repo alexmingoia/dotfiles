@@ -7,6 +7,7 @@ My MacOS setup. Take what you like.
 - Terminal: [iTerm2](https://iterm2.com) and [tmux](https://github.com/tmux/tmux/wiki/Getting-Started)
 - Shell: [Nushell](https://www.nushell.sh)
 - Editor: [Helix](https://helix-editor.com)
+- Font: [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
   
 ## Installation
 
