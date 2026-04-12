@@ -78,7 +78,7 @@ $env.PATH = ($env.PATH | prepend '/usr/local/bin' | prepend '~/.cargo/bin' | pre
 $env.CFLAGS = '-I/usr/local/include'
 $env.LDFLAGS = '-L/usr/local/lib'
 
-source ~/.dotfiles/nushell/git-completions.nu
+source ~/.dotfiles/.config/nushell/git-completions.nu
 
 $env.EDITOR = "hx"
 

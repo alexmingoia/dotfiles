@@ -159,7 +159,7 @@
   },
   "Name" : "Default",
   "Blinking Cursor" : false,
-  "Guid" : "C62533DC-B92F-4285-9C48-5889FA4F300D",
+  "Guid" : "root-iterm-profile",
   "Match Background Color" : {
     "Red Component" : 0.99697142839431763,
     "Color Space" : "P3",

@@ -72,17 +72,17 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 defaults write -g NSWindowShouldDragOnGesture YES
 
 # Suppress login shell announcement
-ln -s ~/.dotfiles/.hushlogin ~/.hushlogin
+touch ~/.hushlogin
 
 # Link configuration
 echo "Linking configuration files..."
 
 touch ~/.env.nu
-ln -s ~/.dotfiles/nushell ~/Library/Application\ Support/`
-ln -s ~/.dotfiles/.config/tmux.conf ~/.tmux.conf
+ln -s ~/.dotfiles/.config/nushell ~/Library/Application\ Support/
+ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
 ln -s ~/.dotfiles/.config/helix ~/.config/helix
-ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
-ln -s ~/.dotfiles/iterm2/profiles/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
+ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
+ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
 
 # Start services
 echo "Starting services..."
