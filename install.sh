@@ -10,9 +10,6 @@ echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 
-## Taps
-echo "Tapping formulae..."
-
 ## Formulae
 echo "Installing formulae..."
 ### Essentials
@@ -40,6 +37,11 @@ brew install --cask sf-symbols
 brew install --cask font-sf-mono
 brew install --cask font-sf-pro
 brew install --cask font-jetbrains-mono
+
+# Copy and check out configuration files
+echo "Downloading dotfiles..."
+[ ! -d "$HOME/.dotfiles" ] && git clone --bare git@github.com:alexmingoia/dotfiles.git $HOME/.dotfiles
+git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
 
 # macOS Settings
 echo "Changing MacOS defaults..."
@@ -72,27 +74,15 @@ defaults write -g NSWindowShouldDragOnGesture YES
 # Suppress login shell announcement
 ln -s ~/.dotfiles/.hushlogin ~/.hushlogin
 
-# Copy and check out configuration files
-echo "Downloading dotfiles..."
-[ ! -d "$HOME/.dotfiles" ] && git clone --bare git@github.com:alexmingoia/dotfiles.git $HOME/.dotfiles
-git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
+# Link configuration
+echo "Linking configuration files..."
 
-# Copy shell configuration
-echo "Linking Nu configuration..."
 touch ~/.env.nu
 ln -s ~/.dotfiles/nushell ~/Library/Application\ Support/`
-
-# Copy editor configuration
-echo "Linking tmux configuration..."
 ln -s ~/.dotfiles/.config/tmux.conf ~/.tmux.conf
-
-# Copy editor configuration
-echo "Linking Helix configuration..."
 ln -s ~/.dotfiles/.config/helix ~/.config/helix
-
-# Copy Aerospace configuration
-echo "Linking Aerospace configuration..."
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
+ln -s ~/.dotfiles/iterm2/profiles/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
 
 # Start services
 echo "Starting services..."

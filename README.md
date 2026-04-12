@@ -10,15 +10,10 @@ My MacOS setup. Take what you like.
 - Shell: [Nushell](https://www.nushell.sh)
 - Editor: [Helix](https://helix-editor.com)
   
-## Configuration
+## Installation
 
-Most configuration is done by [`install.sh`](install.sh), with a few manual steps.
+[`install.sh`](install.sh) installs and configures tools and configuration automatically:
 
 ```sh
 curl -L https://raw.githubusercontent.com/alexmingoia/dotfiles/master/install.sh | sh
 ```
-
-### iTerm2
-
-- Set the default shell to nushell in iTerm2's Settings > Profiles > Default > General, under "Command". Use `which nu` to get the executable path.
-- Import the iterm2/tomorrow_night_2022.itermcolors in Settings > Profiles > Default > Colors.
