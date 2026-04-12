@@ -37,11 +37,6 @@ brew install --cask font-sf-mono
 brew install --cask font-sf-pro
 brew install --cask font-jetbrains-mono
 
-# Copy and check out configuration files
-echo "Downloading dotfiles..."
-[ ! -d "$HOME/.dotfiles" ] && git clone --bare git@github.com:alexmingoia/dotfiles.git $HOME/.dotfiles
-git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
-
 # macOS Settings
 echo "Changing MacOS defaults..."
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
@@ -70,19 +65,22 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 defaults write -g NSWindowShouldDragOnGesture YES
+touch "$HOME/.hushlogin" # Suppress login shell announcement
 
-# Suppress login shell announcement
-touch ~/.hushlogin
+# Copy and check out configuration files
+echo "Installing dotfiles..."
+[ ! -d "$HOME/.dotfiles" ] && git clone --bare git@github.com:alexmingoia/dotfiles.git $HOME/.dotfiles
+git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout master
 
 # Link configuration
 echo "Linking configuration files..."
 
 touch ~/.env.nu
 [ ! -d "$HOME/Library/Application Support/nushell" ] && ln -s ~/.dotfiles/.config/nushell ~/Library/Application\ Support/
-[ ! "$HOME/.tmux.conf" ] && ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
-[ ! "$HOME/.config/helix" ] && ln -s ~/.dotfiles/.config/helix ~/.config/helix
-[ ! -d "$HOME/.aerospace.toml" ] && ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
-[ ! -d "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Profiles.json" ] && ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
+[ ! -f "$HOME/.tmux.conf" ] && ln -s ~/.dotfiles/.config/tmux/.tmux.conf ~/.tmux.conf
+[ ! -d "$HOME/.config/helix" ] && ln -s ~/.dotfiles/.config/helix ~/.config/helix
+[ ! -f "$HOME/.aerospace.toml" ] && ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
+[ ! -f "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Profiles.json" ] && ln -s ~/.dotfiles/.config/iterm2/Profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/Profiles.json
 
 # Start services
 echo "Starting services..."
