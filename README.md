@@ -10,7 +10,7 @@ My MacOS setup. Take what you like.
   
 ## Installation
 
-[`install.sh`](install.sh) installs and configures tools and configuration automatically:
+[`install.sh`](install.sh) installs tools and configuration automatically:
 
 ```sh
 curl -L https://raw.githubusercontent.com/alexmingoia/dotfiles/master/install.sh | sh
