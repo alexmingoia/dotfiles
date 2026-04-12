@@ -6,7 +6,7 @@ My MacOS setup. Take what you like.
 
 - Window manager: [Aerospace](https://github.com/nikitabobko/AeroSpace)
 - Package manager: [Homebrew](https://brew.sh)
-- Terminal: [iTerm2](https://iterm2.com)
+- Terminal: [iTerm2](https://iterm2.com) and [tmux](https://github.com/tmux/tmux/wiki/Getting-Started)
 - Shell: [Nushell](https://www.nushell.sh)
 - Editor: [Helix](https://helix-editor.com)
   
@@ -21,4 +21,4 @@ curl -L https://raw.githubusercontent.com/alexmingoia/dotfiles/master/install.sh
 ### iTerm2
 
 - Set the default shell to nushell in iTerm2's Settings > Profiles > Default > General, under "Command". Use `which nu` to get the executable path.
-- Set the colors to match Helix's theme in iTerm2's Settings > Profiles > Default > Colors, then import the color preset from this repository.
+- Import the iterm2/tomorrow_night_2022.itermcolors in Settings > Profiles > Default > Colors.
