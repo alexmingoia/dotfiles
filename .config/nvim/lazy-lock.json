@@ -1,0 +1,4 @@
+{
+  "fzf-lua": { "branch": "main", "commit": "ce788d5acb83628c66f6639920ec0f36576646d7" },
+  "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" }
+}

@@ -18,9 +18,11 @@ brew install --cask iterm2
 brew install --cask aerospace
 brew install nushell
 brew install tmux
-brew install helix
+brew install nvim
+brew install fzf
+brew install ripgrep
+brew install fd
 brew install mise
-brew install raine/workmux/workmux
 brew install --cask sf-symbols
 brew install --cask font-sf-mono
 brew install --cask font-sf-pro
@@ -111,18 +113,18 @@ else
   echo "  Linked tmux configuration to ~/.tmux.conf"
 fi
 
-if [ -d "$HOME/.config/helix" ]; then
-  echo "  Skipped Helix configuration (already exists)"
-else
-  ln -s ~/.dotfiles/.config/helix ~/.config/helix
-  echo "  Linked Helix configuration to ~/.config/helix"
-fi
-
 if [ -f "$HOME/.aerospace.toml" ]; then
   echo "  Skipped Aerospace configuration (already exists)"
 else
   ln -s ~/.dotfiles/.config/aerospace/.aerospace.toml ~/.aerospace.toml
   echo "  Linked Aerospace configuration to ~/.aerospace.toml"
+fi
+
+if [ -d "$HOME/.config/nvim" ]; then
+  echo "  Skipped Neovim configuration (already exists)"
+else
+  ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
+  echo "  Linked Neovim configuration to ~/.config/nvim"
 fi
 
 if [ -f "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Profiles.json" ]; then

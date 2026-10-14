@@ -80,7 +80,7 @@ $env.LDFLAGS = '-L/usr/local/lib'
 
 source ~/.dotfiles/.config/nushell/git-completions.nu
 
-$env.EDITOR = "hx"
+$env.EDITOR = "nvim"
 
 # Ensure GPG works to sign Git commits
 $env.GPG_TTY = (tty)

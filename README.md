@@ -6,7 +6,7 @@ My MacOS setup. Take what you like.
 - Package manager: [Homebrew](https://brew.sh)
 - Terminal: [iTerm2](https://iterm2.com) and [tmux](https://github.com/tmux/tmux/wiki/Getting-Started)
 - Shell: [Nushell](https://www.nushell.sh)
-- Editor: [Helix](https://helix-editor.com)
+- Editor: [Neovim](https://neovim.io)
 - Font: [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
   
 ## Installation
